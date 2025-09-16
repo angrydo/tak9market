@@ -1,4 +1,4 @@
-package com.t9m.backend;
+package com.t9m.tak9market;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
