@@ -7,6 +7,7 @@ import com.t9m.tak9market.product.dto.ProductUpdateRequestDto;
 import com.t9m.tak9market.product.service.ProductReadService;
 import com.t9m.tak9market.product.service.ProductWriteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,5 +46,21 @@ public class ProductController {
     public ResponseEntity<CommonResponse<?>> getProduct(@PathVariable Long id) {
         ProductResponseDto responseDto = productReadService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(CommonResponse.success(responseDto));
+    }
+
+    @GetMapping("/searchByName")
+    public Page<ProductResponseDto> searchProductsByName(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return productReadService.searchByName(keyword, page, size);
+    }
+
+    @GetMapping("/searchByCategory")
+    public Page<ProductResponseDto> searchProductsByCategory(
+            @RequestParam String category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return productReadService.searchByCategory(category, page, size);
     }
 }
